@@ -1,3 +1,5 @@
+package ejercicio1_FormadosEnLaCafeteria;
+
 /**
  * Problema: Formados en la cafetería
  * Autor: Lluvia Villanueva Lazo
