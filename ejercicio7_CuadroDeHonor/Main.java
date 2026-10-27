@@ -3,8 +3,9 @@ package ejercicio7_CuadroDeHonor;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.StringTokenizer;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -16,33 +17,55 @@ import java.util.StringTokenizer;
  */
 
 //cree la estructura base de Main.java
-public class Main {
-    public static void main(String[] args) throws IOException {
 
+public class Main {
+
+    static class Alumno {
+        String nombre;
+        double calificacion;
+
+        public Alumno(String nombre, double calificacion) {
+            this.nombre = nombre;
+            this.calificacion = calificacion;
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String linea = br.readLine();
         if (linea == null || linea.trim().isEmpty()) return;
 
         int n = Integer.parseInt(linea.trim());
-        ListaAlumnos lista = new ListaAlumnos();
+        ArrayList<Alumno> lista = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
-            linea = br.readLine();
-            if (linea == null) continue;
-            StringTokenizer st = new StringTokenizer(linea);
-            if (!st.hasMoreTokens()) continue;
-            String nombre = st.nextToken();
-            double calificacion = Double.parseDouble(st.nextToken());
-            lista.agregar(nombre, calificacion);
+            // Leer la línea del nombre completo (puede tener espacios como "Pepito Perez")
+            String nombre = br.readLine();
+            if (nombre == null) continue;
+            nombre = nombre.trim();
+
+            // Leer la línea de la calificación
+            String califStr = br.readLine();
+            if (califStr == null) continue;
+            double calificacion = Double.parseDouble(califStr.trim());
+
+            // Filtrar solo los que están en el cuadro de honor (>= 9.5)
+            if (calificacion >= 9.5) {
+                lista.add(new Alumno(nombre, calificacion));
+            }
         }
 
-        lista.ordenarDescendente();
+        // Ordenar alfabéticamente por nombre
+        Collections.sort(lista, new Comparator<Alumno>() {
+            @Override
+            public int compare(Alumno a1, Alumno a2) {
+                return a1.nombre.compareTo(a2.nombre);
+            }
+        });
 
         StringBuilder sb = new StringBuilder();
-        Nodo actual = lista.cabeza;
-        while (actual != null) {
-            sb.append(actual.nombre).append(" ").append(actual.calificacion).append("\n");
-            actual = actual.siguiente;
+        for (Alumno a : lista) {
+            sb.append(a.nombre).append("\n");
         }
         System.out.print(sb.toString());
     }
