@@ -1,0 +1,19 @@
+package ejercicio7_CuadroDeHonor;
+
+import java.io.IOException;
+
+
+/**
+ * Problema: Cuadro de honor
+ * Autor: Lluvia Villanueva Lazo
+ * Grupo: GTID244
+ * Fecha: 26-10-2026
+ * Descripción: Clase principal inicial para la ejecución del programa.
+ */
+
+//cree la estructura base de Main.java
+public class Main {
+    public static void main(String[] args) throws IOException {
+        // Preparación de lectura
+    }
+}
